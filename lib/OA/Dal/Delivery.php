@@ -770,7 +770,7 @@
 		$likeKeyword = [];
 		if (count($keywords) > 0)
 			foreach ($keywords as $keyword)
-				$likeKeyword[] = "d.keyword = {$keyword}";
+				$likeKeyword[] = "d.keyword LIKE '%{$keyword}%'";
 		$where = "";
 		$where .= ( $campaignid != 0 ) ? "d.campaignid = {$campaignid} AND " : "";
 		$where .= ( count($likeKeyword) > 0 ) ? implode(" OR ", $likeKeyword) . " AND " : "";

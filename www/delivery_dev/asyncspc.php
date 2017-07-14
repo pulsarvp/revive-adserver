@@ -35,11 +35,6 @@
 		MAX_sendStatusCode(400);
 		exit;
 	}
-
-	if (preg_match('/[^0-9_-]/', $zones))
-	{
-		$zones = MAX_cacheGetZoneIdByName($zones);
-	}
 	if (preg_match('/[^0-9_-]/', $campaign))
 	{
 		$campaign = MAX_cacheGetCampaignIdByName($campaign);
@@ -55,6 +50,11 @@
 		$zones = explode('|', $zones);
 		foreach ($zones as $id => $thisZoneid)
 		{
+			if (preg_match('/[^0-9_-]/', $thisZoneid))
+			{
+				$thisZoneid = MAX_cacheGetZoneIdByName($thisZoneid);
+			}
+
 			$zonename = $prefix . $id;
 
 			// Clear deiveryData between iterations

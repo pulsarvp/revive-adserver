@@ -48,6 +48,7 @@
 	if (!empty($zones))
 	{
 		$zones = explode('|', $zones);
+		$keywords = explode('|', $keywords);
 		foreach ($zones as $id => $thisZoneid)
 		{
 			if (preg_match('/[^0-9_-]/', $thisZoneid))
@@ -61,9 +62,9 @@
 			unset($GLOBALS[ '_MAX' ][ 'deliveryData' ]);
 
 			$what = 'zone:' . $thisZoneid;
-
+			$keyword = isset($keywords[ $id ]) ? $keywords[ $id ] : "";
 			// Get the banner
-			$output = MAX_adSelect($what, $campaign, $target, $source, $withtext, $charset, $context, true, $ct0, $GLOBALS[ 'loc' ], $GLOBALS[ 'referer' ], $keywords);
+			$output = MAX_adSelect($what, $campaign, $target, $source, $withtext, $charset, $context, true, $ct0, $GLOBALS[ 'loc' ], $GLOBALS[ 'referer' ], $keyword);
 
 			$spc_output[ $zonename ] = [
 				'html'           => $output[ 'html' ],

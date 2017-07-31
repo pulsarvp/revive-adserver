@@ -5163,6 +5163,7 @@ $spc_output = [];
 if (!empty($zones))
 {
 $zones = explode('|', $zones);
+$keywords = explode('|', $keywords);
 foreach ($zones as $id => $thisZoneid)
 {
 if (preg_match('/[^0-9_-]/', $thisZoneid))
@@ -5172,7 +5173,8 @@ $thisZoneid = MAX_cacheGetZoneIdByName($thisZoneid);
 $zonename = $prefix . $id;
 unset($GLOBALS[ '_MAX' ][ 'deliveryData' ]);
 $what = 'zone:' . $thisZoneid;
-$output = MAX_adSelect($what, $campaign, $target, $source, $withtext, $charset, $context, true, $ct0, $GLOBALS[ 'loc' ], $GLOBALS[ 'referer' ], $keywords);
+$keyword = isset($keywords[ $id ]) ? $keywords[ $id ] : "";
+$output = MAX_adSelect($what, $campaign, $target, $source, $withtext, $charset, $context, true, $ct0, $GLOBALS[ 'loc' ], $GLOBALS[ 'referer' ], $keyword);
 $spc_output[ $zonename ] = [
 'html' => $output[ 'html' ],
 'width' => isset($output[ 'width' ]) ? $output[ 'width' ] : 0,

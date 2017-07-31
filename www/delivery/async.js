@@ -88,7 +88,9 @@
 							"<?php echo MAX_commonConstructSecureDeliveryUrl($GLOBALS['_MAX']['CONF']['file']['asyncspc']); ?>";
 
 						data.zones = data.zones.join("|");
-						data.loc   = doc.location.href;
+						if (data.keywords.length > 0)
+							data.keywords = data.keywords.join("|");
+						data.loc = doc.location.href;
 						if (doc.referrer) {
 							data.referer = doc.referrer;
 						}
@@ -100,8 +102,9 @@
 				detect : function () {
 					var elements = doc.querySelectorAll("ins[data-" + rv.name + "-id='" + ID + "']");
 					var data     = {
-						zones  : [],
-						prefix : rv.name + "-" + rv.id + "-"
+						zones    : [],
+						keywords : [],
+						prefix   : rv.name + "-" + rv.id + "-"
 					};
 
 					for (var idx = 0; idx < elements.length; idx++) {
@@ -110,19 +113,23 @@
 						if (i.hasAttribute("data-" + rv.name + "-zoneid") || i.hasAttribute("data-" + rv.name + "-zone")) {
 							var regex = new RegExp("^data-" + rv.name + "-(.*)$"),
 							    m;
-
+							var keywords;
 							for (var j = 0; j < i.attributes.length; j++) {
 								if (m = i.attributes[ j ].name.match(regex)) {
 									if (m[ 1 ] == 'zoneid' || m[ 1 ] == 'zone') {
 										data.zones[ idx ] = i.attributes[ j ].value;
 										i.id              = data.prefix + idx;
+									} else if (m[ 1 ] == 'keywords') {
+										keywords = i.attributes[ j ].value;
 									} else if (m[ 1 ] != 'id') {
 										data[ m[ 1 ] ] = i.attributes[ j ].value;
 									}
 								}
 							}
+							data.keywords[ idx ] = keywords;
 						}
-					};
+					}
+					;
 
 					return data;
 				},

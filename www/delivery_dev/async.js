@@ -83,10 +83,8 @@
 
 				apply : function (data) {
 					if (data.zones.length) {
-						var url = doc.location.protocol == 'http:' ?
-							"<?php echo MAX_commonConstructDeliveryUrl($GLOBALS['_MAX']['CONF']['file']['asyncspc']); ?>" :
-							"<?php echo MAX_commonConstructSecureDeliveryUrl($GLOBALS['_MAX']['CONF']['file']['asyncspc']); ?>";
-
+						var url = "<?php echo MAX_commonConstructPartialDeliveryUrl($GLOBALS['_MAX']['CONF']['file']['asyncspc']); ?>";
+						
 						data.zones = data.zones.join("|");
 						if (data.keywords.length > 0)
 							data.keywords = data.keywords.join("|");
